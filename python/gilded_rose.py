@@ -10,30 +10,43 @@ class GildedRose(object):
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                        self.decrement_quality_by_one(item)
             else:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
+                    self.increment_quality_by_one(item)
                     if item.name == "Backstage passes to a TAFKAL80ETC concert":
                         if item.sell_in < 11:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
+                                self.increment_quality_by_one(item)
                         if item.sell_in < 6:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
+                                self.increment_quality_by_one(item)
             if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
+                self.decrement_sell_in_by_one(item)
             if item.sell_in < 0:
                 if item.name != "Aged Brie":
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
                         if item.quality > 0:
                             if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
+                                self.decrement_quality_by_one(item)
                     else:
                         item.quality = item.quality - item.quality
                 else:
                     if item.quality < 50:
-                        item.quality = item.quality + 1
+                        self.increment_quality_by_one(item)
+
+    def decrement_sell_in_by_one(self, item):
+        item.sell_in = item.sell_in - 1
+
+    def if_(self, item):
+        item.quality = item.quality + 1
+
+
+    def increment_quality_by_one(self, item):
+        item.quality = item.quality + 1
+
+    def decrement_quality_by_one(self, item):
+        item.quality = item.quality - 1
 
 
 class Item:
@@ -44,3 +57,5 @@ class Item:
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
+
+    
